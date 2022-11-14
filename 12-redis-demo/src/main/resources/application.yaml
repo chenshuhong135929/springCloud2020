@@ -1,0 +1,26 @@
+logging:
+  level:
+    io.lettuce.core: debug
+  pattern:
+    date-format: MM-dd HH:mm:ss:SSS
+#哨兵模式的redis配置
+#spring:
+#  redis:
+#    password: 123456
+#    sentinel:
+#      master: mymaster
+#      nodes:
+#        - 192.168.1.4:27001
+#        - 192.168.1.4:27002
+#        - 192.168.1.4:27003
+#集群模式下的配置
+spring:
+  redis:
+    cluster:
+      nodes:
+        - 192.168.1.4:7001
+        - 192.168.1.4:7002
+        - 192.168.1.4:7003
+        - 192.168.1.4:27001
+        - 192.168.1.4:27002
+        - 192.168.1.4:27003

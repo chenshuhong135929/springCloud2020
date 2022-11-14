@@ -1,0 +1,49 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: storage-service
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.1.4:3306/seata_demo?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
+    username: root
+    password: M2M123456
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.4:8848
+        namespace: 39e5abd4-68cc-453a-8074-021aa0aa9311
+        group: SERVICE_CSH_GROUP
+        username: nacos
+        password: nacos
+        clusterName: SH
+        data-id: client.properties
+
+mybatis-plus:
+  global-config:
+    db-config:
+      insert-strategy: not_null
+      update-strategy: not_null
+      id-type: auto
+logging:
+  level:
+    org.springframework.cloud.alibaba.seata.web: debug
+    com.xn2001: debug
+  pattern:
+    dateformat: MM-dd HH:mm:ss:SSS
+seata:
+  registry: # TC服务注册中心的配置，微服务根据这些信息去注册中心获取tc服务地址
+    type: nacos # 注册中心类型 nacos
+    nacos:
+      server-addr: 192.168.1.4:8848
+      namespace: 39e5abd4-68cc-453a-8074-021aa0aa9311
+      group: SERVICE_CSH_GROUP
+      username: nacos
+      password: nacos
+      application: seata-tc-server
+  tx-service-group: seata-demo # 事务组名称
+  service:
+    vgroup-mapping: # 事务组与cluster的映射关系
+      seata-demo: SH
+  data-source-proxy-mode: AT
+#  data-source-proxy-mode: XA
